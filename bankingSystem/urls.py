@@ -33,3 +33,12 @@ urlpatterns = [
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
+
+
+#http://localhost:8000/getAllCustomers/
+
+#{"originator_customer_id":5 ,"originator_acc_number":101, "transfer_amount":81,"beneficiary_customer_id":34,"beneficary_acc_number":5}
+
+#{"first_name":"Manish1" ,"last_name":"Jain", "address":"Jain Temple","birth_date":"1993-10-28"}
+
+#{"customer_id":"1" ,"acc_number":"100", "acc_type":"credit_card","acc_balance":"34.5"}

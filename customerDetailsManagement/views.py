@@ -1,3 +1,4 @@
+
 from customerDetailsManagement.models import BankCustomer
 from customerDetailsManagement.models import BankAccount
 from customerDetailsManagement.models import CreditTransfer
@@ -10,9 +11,13 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+import logging
 
-'''  Bank Customer CRUD Views'''
+logger = logging.getLogger(__name__)
 
+'''  
+    Bank Customer CRUD Views
+'''
 
 class BankCustomerList(generics.ListAPIView):
     queryset = BankCustomer.objects.all()
@@ -74,6 +79,13 @@ class CreditTransferList(generics.ListAPIView):
 
 class CreditTransferCreate(APIView):
     def post(self, request, format=None):
+        '''logging.debug("Oh hai!")
+        print (request.data)
+
+        logger.info(serializer.data.items());
+        print("Customer id ",serializer.data.get("originator_customer_id"));
+        print(serializer.data.get("originator_customer_id"));
+        print(serializer.data.get("originator_acc_number"));'''
         serializer = CreditTransferSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -84,6 +96,7 @@ class CreditTransferCreate(APIView):
 class CreditTransferDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = CreditTransfer.objects.all()
     serializer_class = CreditTransferSerializer
+
 
 
 

@@ -1,0 +1,9 @@
+# Django
+django==2.0.7
+
+# Django 3rd party modules
+django-model-utils==2.6
+djangorestframework==3.8.2
+django-computed-property==0.2.1
+geopy==1.14.0
+pygeocoder==1.2.5
