@@ -17,11 +17,13 @@ ADD . /home_banking_service/
 
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
+RUN python manage.py makemigrations && python manage.py migrate
+ENV DJANGO_DB_NAME=default
 ENV DJANGO_SU_NAME=admin
 ENV DJANGO_SU_EMAIL=admin@gmail.com
 ENV DJANGO_SU_PASSWORD=password123
-
-RUN python -c "import django; django.setup(); \
+ENV DJANGO_SETTINGS_MODULE=bankingSystem.settings
+RUN python -c "import django,os; os.environ.setdefault(DJANGO_SETTINGS_MODULE, '$DJANGO_SETTINGS_MODULE'); django.setup(); \
    from django.contrib.auth.management.commands.createsuperuser import get_user_model; \
    get_user_model()._default_manager.db_manager('$DJANGO_DB_NAME').create_superuser( \
    username='$DJANGO_SU_NAME', \
