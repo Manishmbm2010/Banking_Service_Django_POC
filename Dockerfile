@@ -9,13 +9,14 @@ ENV PYTHONUNBUFFERED 1
 # create root directory for our project in the container
 RUN mkdir /home_banking_service
 
-# Set the working directory to /music_service
+# Set the working directory to /home_banking_service
 WORKDIR /home_banking_service
-
-# Copy the current directory contents into the container at /music_service
-ADD . /home_banking_service/
 
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
+
+# Copy the current directory contents into the container at /home_banking_service
+ADD . /home_banking_service/
+
 RUN python manage.py makemigrations customer && python manage.py makemigrations account && python manage.py makemigrations payments && python manage.py migrate
 RUN echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@myproject.com', 'password')" | python manage.py shell
