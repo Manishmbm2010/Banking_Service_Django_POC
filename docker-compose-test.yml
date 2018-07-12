@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile_test
+    command: bash -c "python manage.py test"
+#    container_name: home_banking_service
+    ports:
+      - "8000:8000"

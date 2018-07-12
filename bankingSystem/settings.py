@@ -10,7 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
-import os
+import os, sys
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +32,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'customerDetailsManagement.apps.CustomerdetailsmanagementConfig',
+    'customer.apps.CustomerConfig',
+    'payments.apps.PaymentsConfig',
+    'account.apps.AccountConfig',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -71,6 +74,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bankingSystem.wsgi.application'
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [],
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+   #'TEST_REQUEST_RENDERER_CLASSES': (
+   #     'rest_framework.renderers.JSONRenderer'
+   # ),
+
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    #    'rest_framework.renderers.BrowsableAPIRenderer',
+    )
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -124,22 +142,34 @@ STATIC_URL = '/static/'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
-        },
-    },
     'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'info.log',
         },
     },
     'loggers': {
+        'customer': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'account': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'payments': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
         'django': {
-            'handlers': ['console'],
+            'handlers': ['file'],
             'level': 'INFO',
             'propagate': True,
         },
     },
+
 }
