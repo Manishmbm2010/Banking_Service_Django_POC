@@ -16,7 +16,7 @@ No constraint has been implemented on Amount field because amount can zero , neg
 
 
 class BankAccount(models.Model):
-    acc_number = models.IntegerField(primary_key=True)
+    acc_number = models.AutoField(primary_key=True)
     customer_id = models.ForeignKey(BankCustomer, on_delete=models.CASCADE)
     acc_type = models.CharField(max_length=20, choices=Choices(('Credit_Card', 'Credit_Card'),
                                                                ('Debit_Card', 'Debit_Card')))

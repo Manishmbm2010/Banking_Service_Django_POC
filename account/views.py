@@ -1,7 +1,7 @@
 from account.models import BankAccount
 from account.serializers import BankAccountSerializer
 from rest_framework import generics
-from django.http import Http404
+from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -52,10 +52,15 @@ Below view just return customer specific accounts
 
 
 class CustomerBankAccount(APIView):
-    def get(self, request, customer_id):
+ 
+   def get(self, request, customer_id):
+        response={}
         try:
             accounts = BankAccount.objects.filter(customer_id=customer_id)
+            if len(accounts)==0:
+                raise  Exception('Customer has no accounts');
             serializer = BankAccountSerializer(accounts, many=True)
             return Response(serializer.data)
-        except accounts.DoesNotExist:
-            raise Http404
+        except Exception as error:
+            response={'message' : error.args[0]}
+            return  Response(response,status.HTTP_404_NOT_FOUND)
