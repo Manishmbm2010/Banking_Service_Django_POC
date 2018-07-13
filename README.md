@@ -2,7 +2,7 @@
 
 Code provide "Home Banking solution" as a service that runs in a docker container.
 
-## Project Breif
+## Project Brief
 
 There are total 3 services/entites
 
